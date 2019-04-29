@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import './PostContainer.css';
 
@@ -56,6 +57,15 @@ class PostContainer extends Component {
         </section>
     );
   }
+}
+
+PostContainer.propTypes = {
+  data: PropTypes.shape({
+    thumbnailUrl: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    likes: PropTypes.number.isRequired,
+  })
 }
 
 export default PostContainer;
