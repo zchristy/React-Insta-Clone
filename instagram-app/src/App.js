@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
 
 import SearchBar from './components/SearchBar/SearchBar';
 import PostContainer from './components/PostContainer/PostContainer';
-import CommentSection from './components/CommentSection/CommentSection';
 
 import dummyData from './dummy-data';
 
@@ -11,14 +11,22 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = dummyData;
+    this.state = {
+      dataObjs: dummyData
+    };
   }
+
   render() {
+
+    const postContainer = this.state.dataObjs.map((data, i) => {
+      return <PostContainer key={i} data={data} />
+    });
     return (
       <div className="App">
         <SearchBar />
-        <PostContainer />
-        <CommentSection />
+        <div className="PostContainer">
+          {postContainer}
+        </div>
       </div>
     );
   }

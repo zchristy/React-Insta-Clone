@@ -1,0 +1,18 @@
+.CommentSection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-username {
+  font-weight: bold;
+  margin-right: 10px;
+  line-height: 1.5;
+}
+
+.comment-text {
+  margin-left: 10px;
+  font-weight: normal;
+}
