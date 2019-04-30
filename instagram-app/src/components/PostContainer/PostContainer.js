@@ -6,25 +6,58 @@ import './PostContainer.css';
 import CommentSection from '../CommentSection/CommentSection';
 
 class PostContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      comments: [],
+      likes: []
+    }
+  }
 
   submitHandler = (event) => {
     event.preventDefault();
-    // this.setState({
-    //   dataObjs: {
-    //     [...comments], event.target.querySelector('input').value
-    //   }
-    // });
-    console.log(event.target.querySelector('input').value);
+    this.setState({
+        comments: [...this.state.comments].concat({
+                                              username: 'unknown',
+                                              text: event.target.querySelector('input').value
+                                            })
+      });
+
     event.target.reset();
+  }
+
+  clickhandler = (event) => {
+     event.preventDefault();
+
+     if(this.state.likes === this.props.data.likes + 1) {
+       console.log('first');
+       this.setState({
+         likes: this.state.likes - 1
+       });
+     } else {
+      console.log('third');
+      this.setState({
+        likes: this.state.likes + 1
+      });
+    }
+
+  }
+
+  componentDidMount() {
+    this.setState({
+      comments: this.props.data.comments,
+      likes: this.props.data.likes
+    });
   }
 
   render() {
     const { data } = this.props;
 
-    const commentSection = data.comments.map((comment, i) => {
+    const commentSection = this.state.comments.map((comment, i) => {
       return <CommentSection key={i} comment={comment} />
     });
-    console.log(data);
+
     return (
         <section className="post">
           <div className="user">
@@ -32,15 +65,15 @@ class PostContainer extends Component {
             <div className="username" >{data.username}</div>
           </div>
           <div className="post-img">
-            <img src={data.imageUrl} alt="User's post image" />
+            <img src={data.imageUrl} alt="User's post" />
           </div>
           <div className="bottom-content">
             <div className="btns">
-              <i className="far fa-heart btn-icon"></i>
+              <i className="far fa-heart btn-icon" onClick={this.clickhandler}></i>
               <i className="far fa-comment btn-icon"></i>
             </div>
             <div className="likes">
-              {data.likes} likes
+              {this.state.likes} likes
             </div>
             <section className="comments-container">
               {commentSection}
@@ -50,7 +83,7 @@ class PostContainer extends Component {
             </div>
             <section className="add-comment">
               <form onSubmit={this.submitHandler}>
-                <input id='comment' type="text"  placeholder='Add a comment...' />
+                <input id='comment'  type="text"  placeholder='Add a comment...' />
               </form>
             </section>
           </div>
