@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './SearchBar.css';
 
 class SearchBar extends Component {
+
   render() {
+    const { onSubmit } = this.props;
     return (
       <div className="container">
         <div className="header-container">
@@ -12,7 +14,7 @@ class SearchBar extends Component {
             <div className="instagram"></div>
           </div>
           <div className="searchBar">
-            <form>
+            <form onSubmit={onSubmit}>
               <input id="search" placeholder="&#xF002; Search" />
             </form>
           </div>

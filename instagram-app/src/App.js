@@ -7,12 +7,29 @@ import PostContainer from './components/PostContainer/PostContainer';
 import dummyData from './dummy-data';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
-      dataObjs: dummyData
+      dataObjs: []
     };
+  }
+
+  submitHandler = (event) => {
+    console.log('submitted');
+    event.preventDefault();
+    this.setState({
+        dataObjs: this.state.dataObjs.filter(data => {
+                                              return data.username == event.target.querySelector('#search').value
+                                          })
+      });
+    event.target.reset();
+  }
+
+  componentDidMount() {
+    this.setState({
+      dataObjs: dummyData
+    })
   }
 
   render() {
@@ -22,7 +39,7 @@ class App extends Component {
     });
     return (
       <div className="App">
-        <SearchBar />
+        <SearchBar onSubmit={this.submitHandler} />
         <div className="PostContainer">
           {postContainer}
         </div>
