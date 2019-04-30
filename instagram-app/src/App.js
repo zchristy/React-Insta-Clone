@@ -20,7 +20,7 @@ class App extends Component {
     event.preventDefault();
     this.setState({
         dataObjs: this.state.dataObjs.filter(data => {
-                                              return data.username == event.target.querySelector('#search').value
+                                              return data.username === event.target.querySelector('#search').value
                                           })
       });
     event.target.reset();

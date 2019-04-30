@@ -8,7 +8,7 @@ class CommentSection extends Component {
     super(props);
 
     this.state = {
-      comments: []
+      comments: this.props.comments
     }
   }
 
@@ -22,12 +22,7 @@ class CommentSection extends Component {
       });
     event.target.reset();
   }
-
-  componentDidMount() {
-    this.setState({
-      comments: this.props.comments
-    });
-  }
+  
   render() {
 
     const comments = this.state.comments.map((comment, i) => {

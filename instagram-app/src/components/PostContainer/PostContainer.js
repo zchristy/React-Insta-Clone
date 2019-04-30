@@ -9,7 +9,7 @@ class PostContainer extends Component {
     super(props);
 
     this.state = {
-      likes: []
+      likes: this.props.data.likes
     }
   }
 
@@ -26,12 +26,6 @@ class PostContainer extends Component {
       });
     }
 
-  }
-
-  componentDidMount() {
-    this.setState({
-      likes: this.props.data.likes
-    });
   }
 
   render() {
