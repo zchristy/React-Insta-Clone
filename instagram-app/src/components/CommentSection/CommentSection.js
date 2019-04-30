@@ -42,7 +42,7 @@ class CommentSection extends Component {
         </div>
       )
     });
-    
+
     return (
       <div className="CommentSection">
         {comments}

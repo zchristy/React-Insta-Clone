@@ -67,6 +67,7 @@ PostContainer.propTypes = {
     username: PropTypes.string.isRequired,
     imageUrl: PropTypes.string.isRequired,
     likes: PropTypes.number.isRequired,
+    comments: PropTypes.array.isRequired
   })
 }
 
