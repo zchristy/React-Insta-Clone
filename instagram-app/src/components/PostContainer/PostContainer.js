@@ -16,15 +16,7 @@ class PostContainer extends Component {
   clickhandler = (event) => {
      event.preventDefault();
 
-     if(this.state.likes === this.props.data.likes + 1) {
-       this.setState({
-         likes: this.state.likes - 1
-       });
-     } else {
-      this.setState({
-        likes: this.state.likes + 1
-      });
-    }
+     this.state.likes === this.props.data.likes + 1 ? this.setState({ likes: this.state.likes - 1 }) : this.setState({ likes: this.state.likes + 1 })
 
   }
 

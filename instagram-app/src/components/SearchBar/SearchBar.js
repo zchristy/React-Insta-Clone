@@ -5,7 +5,7 @@ import './SearchBar.css';
 class SearchBar extends Component {
 
   render() {
-    const { onSubmit } = this.props;
+    const { onSubmit, onClick } = this.props;
     return (
       <div className="container">
         <div className="header-container">
@@ -18,6 +18,7 @@ class SearchBar extends Component {
             <form onSubmit={onSubmit}>
               <input id="search" placeholder="&#xF002; Search" />
             </form>
+            <p className="reset" onClick={onClick}><i className="fas fa-sync-alt"></i></p>
           </div>
           <div className="header-right">
             <i className="far fa-compass header-btns"></i>

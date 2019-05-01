@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Fuse from "fuse.js";
 import './App.css';
 
 import SearchBar from './components/SearchBar/SearchBar';
@@ -16,14 +17,34 @@ class App extends Component {
   }
 
   submitHandler = (event) => {
-    console.log('submitted');
     event.preventDefault();
+
+    //Fuse.js logic
+    let options = {
+      shouldSort: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [
+        "username"
+      ]
+    };
+    let fuse = new Fuse(this.state.dataObjs, options);
+    let result = fuse.search(event.target.querySelector('#search').value);
+
     this.setState({
-        dataObjs: this.state.dataObjs.filter(data => {
-                                              return data.username === event.target.querySelector('#search').value
-                                          })
-      });
+        dataObjs: result
+    });
+
     event.target.reset();
+  }
+
+  resetDataObj = (event) => {
+    this.setState({
+      dataObjs: dummyData
+    })
   }
 
   componentDidMount() {
@@ -33,13 +54,17 @@ class App extends Component {
   }
 
   render() {
-
     const postContainer = this.state.dataObjs.map((data, i) => {
       return <PostContainer key={i} data={data} />
     });
+
     return (
       <div className="App">
-        <SearchBar onSubmit={this.submitHandler} />
+        <SearchBar
+          onChange={this.handleChange}
+          onSubmit={this.submitHandler}
+          onClick={this.resetDataObj}
+        />
         <div className="PostContainer">
           {postContainer}
         </div>
