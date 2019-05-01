@@ -43,9 +43,15 @@
 .btn-icon {
   margin: 0 20px 10px 0;
   font-size: 1.5rem;
+  transition: all .3s ease;
 }
 
 .likes {
   margin-bottom: 10px;
   font-weight: bold;
+}
+
+.clicked-heart {
+  color: #ED4956;
+  transform: scale(1.1);
 }

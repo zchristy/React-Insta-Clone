@@ -16,6 +16,7 @@ class CommentSection extends Component {
     event.preventDefault();
 
     const newComment = {
+      id: Date.now(),
       username: 'unknown',
       text: event.target.querySelector('input').value
     }

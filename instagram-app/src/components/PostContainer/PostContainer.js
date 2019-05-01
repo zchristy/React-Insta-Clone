@@ -18,6 +18,8 @@ class PostContainer extends Component {
 
      this.state.likes === this.props.data.likes + 1 ? this.setState({ likes: this.state.likes - 1 }) : this.setState({ likes: this.state.likes + 1 })
 
+     event.target.classList.toggle('clicked-heart');
+
   }
 
   render() {

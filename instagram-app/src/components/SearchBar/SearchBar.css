@@ -58,9 +58,14 @@
 
 .reset {
   cursor: pointer;
-  margin-left: 5px;
+  margin-left: 10px;
   color: #A9A9A9;
+  transition: all .3s ease;
+}
 
+.reset:hover {
+  color: #4F94D0;
+  transform: scale(1.1);
 }
 
 #search {
