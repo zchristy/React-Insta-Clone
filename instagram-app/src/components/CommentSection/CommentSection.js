@@ -14,26 +14,45 @@ class CommentSection extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
+
+    const newComment = {
+      username: 'unknown',
+      text: event.target.querySelector('input').value
+    }
+    const addComment = [...this.state.comments].concat(newComment);
+
     this.setState({
-        comments: [...this.state.comments].concat({
-                                              username: 'unknown',
-                                              text: event.target.querySelector('input').value
-                                            })
+        comments: addComment
       });
+
     event.target.reset();
   }
-  
+
+  deleteHandler = (event) => {
+    event.preventDefault();
+
+    const deletedArr = this.state.comments.filter(comment => {
+      return comment.id.toString() !== event.target.getAttribute('name');
+    });
+
+    this.setState({
+      comments: deletedArr
+    });
+
+  }
+
   render() {
 
-    const comments = this.state.comments.map((comment, i) => {
+    const comments = this.state.comments.map(comment => {
       return  (
-        <div key={i} className="comment-content">
+        <div key={comment.id} className="comment-content">
           <div className="comment-username">
             {comment.username}
             <span className="comment-text">
               {comment.text}
             </span>
           </div>
+          <span name={comment.id} id="delete" onClick={this.deleteHandler}>X</span>
         </div>
       )
     });
