@@ -5,8 +5,6 @@ import './App.css';
 import PostPage from './components/PostContainer/PostPage';
 import LoginPage from './components/LoginPage/LoginPage';
 
-import dummyData from './dummy-data';
-
 const ComponentFromWithAuthenticate = withAuthenticate(LoginPage)(PostPage);
 
 class App extends Component {

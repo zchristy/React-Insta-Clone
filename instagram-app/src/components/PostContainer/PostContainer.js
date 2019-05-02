@@ -23,7 +23,7 @@ class PostContainer extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, onSubmit, onClick } = this.props;
 
     return (
         <section className="post">
@@ -42,7 +42,11 @@ class PostContainer extends Component {
             <div className="likes">
               {this.state.likes} likes
             </div>
-              <CommentSection comments={data.comments} />
+              <CommentSection
+                data={data}
+                onSubmit={onSubmit}
+                onClick={onClick}
+              />
           </div>
         </section>
     );

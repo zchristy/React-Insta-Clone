@@ -6,6 +6,7 @@ class SearchBar extends Component {
 
   render() {
     const { onSubmit, onClick } = this.props;
+    
     return (
       <div className="container">
         <div className="header-container">
