@@ -60,7 +60,7 @@
   cursor: pointer;
   margin-left: 10px;
   color: #A9A9A9;
-  transition: all .3s ease;
+  transition: all .5s ease;
 }
 
 .reset:hover {
@@ -94,4 +94,8 @@
 .header-btns {
   font-size: 1.6rem;
   margin: 0 15px;
+}
+
+.spin {
+  transform: rotate(360deg);
 }
