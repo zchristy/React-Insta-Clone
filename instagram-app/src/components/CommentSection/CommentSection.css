@@ -1,9 +1,20 @@
 .CommentSection {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  align-items: center;
   margin-bottom: 10px;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.comment-content:hover #delete {
+  opacity: 1;
 }
 
 .comment-username {
@@ -15,4 +26,33 @@
 .comment-text {
   margin-left: 10px;
   font-weight: normal;
+}
+
+#delete {
+  color: #c0392b;
+  transition: all 0.3s;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#delete:hover {
+  color: #e74c3c;
+}
+
+.time {
+  margin: 10px 0;
+  color: #999999;
+}
+
+.add-comment {
+  width: 100%;
+  border-top: 1px solid #EEEEEE;
+}
+
+.add-comment input {
+  width: 100%;
+  border: none;
+  height: 50px;
+  color: #404040;
+  font-size: 1rem;
 }

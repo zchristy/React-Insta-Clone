@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import './PostContainer.css';
 
 import CommentSection from '../CommentSection/CommentSection';
@@ -10,53 +9,21 @@ class PostContainer extends Component {
     super(props);
 
     this.state = {
-      comments: [],
-      likes: []
+      likes: this.props.data.likes
     }
-  }
-
-  submitHandler = (event) => {
-    event.preventDefault();
-    this.setState({
-        comments: [...this.state.comments].concat({
-                                              username: 'unknown',
-                                              text: event.target.querySelector('input').value
-                                            })
-      });
-
-    event.target.reset();
   }
 
   clickhandler = (event) => {
      event.preventDefault();
 
-     if(this.state.likes === this.props.data.likes + 1) {
-       console.log('first');
-       this.setState({
-         likes: this.state.likes - 1
-       });
-     } else {
-      console.log('third');
-      this.setState({
-        likes: this.state.likes + 1
-      });
-    }
+     this.state.likes === this.props.data.likes + 1 ? this.setState({ likes: this.state.likes - 1 }) : this.setState({ likes: this.state.likes + 1 })
 
-  }
+     event.target.classList.toggle('clicked-heart');
 
-  componentDidMount() {
-    this.setState({
-      comments: this.props.data.comments,
-      likes: this.props.data.likes
-    });
   }
 
   render() {
     const { data } = this.props;
-
-    const commentSection = this.state.comments.map((comment, i) => {
-      return <CommentSection key={i} comment={comment} />
-    });
 
     return (
         <section className="post">
@@ -75,17 +42,7 @@ class PostContainer extends Component {
             <div className="likes">
               {this.state.likes} likes
             </div>
-            <section className="comments-container">
-              {commentSection}
-            </section>
-            <div className="time">
-              {moment().fromNow()}
-            </div>
-            <section className="add-comment">
-              <form onSubmit={this.submitHandler}>
-                <input id='comment'  type="text"  placeholder='Add a comment...' />
-              </form>
-            </section>
+              <CommentSection comments={data.comments} />
           </div>
         </section>
     );
@@ -98,6 +55,7 @@ PostContainer.propTypes = {
     username: PropTypes.string.isRequired,
     imageUrl: PropTypes.string.isRequired,
     likes: PropTypes.number.isRequired,
+    comments: PropTypes.array.isRequired
   })
 }
 

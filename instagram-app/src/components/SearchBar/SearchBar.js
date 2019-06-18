@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './SearchBar.css';
 
 class SearchBar extends Component {
+
   render() {
+    const { onSubmit, onClick } = this.props;
     return (
       <div className="container">
         <div className="header-container">
@@ -12,9 +15,10 @@ class SearchBar extends Component {
             <div className="instagram"></div>
           </div>
           <div className="searchBar">
-            <form>
+            <form onSubmit={onSubmit}>
               <input id="search" placeholder="&#xF002; Search" />
             </form>
+            <p className="reset" onClick={onClick}><i className="fas fa-sync-alt"></i></p>
           </div>
           <div className="header-right">
             <i className="far fa-compass header-btns"></i>
@@ -25,6 +29,10 @@ class SearchBar extends Component {
       </div>
     );
   }
+}
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired
 }
 
 export default SearchBar;
