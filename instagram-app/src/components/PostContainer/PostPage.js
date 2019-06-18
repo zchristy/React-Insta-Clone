@@ -17,7 +17,9 @@ class PostPage extends Component {
       dataObjs: []
     };
   }
-  submitHandler = (event) => {
+
+// ========== SEARCH ==========
+  searchSubmitHandler = (event) => {
     event.preventDefault();
 
     //Fuse.js logic
@@ -54,6 +56,60 @@ class PostPage extends Component {
     }, 2000);
   }
 
+// ========== COMMENTS ==========
+  commentSubmitHandler = (inputValue, id) => {
+
+    const filteredObj = this.state.dataObjs.filter(data => {
+      return data.id === id
+    })
+
+    let result = [];
+
+    [...this.state.dataObjs].forEach(data => {
+      if(data.id === filteredObj[0].id) {
+        data.comments.push({
+          id: Date.now(),
+          username: localStorage.getItem('user'),
+          text: inputValue});
+          result.push(data);
+      } else {
+        result.push(data);
+      }
+    })
+
+    this.setState({
+        dataObjs: result
+      });
+  }
+
+  commentDeleteHandler = (commentId, id) => {
+
+    const filteredObj = this.state.dataObjs.filter(data => {
+      return data.id === id
+    })
+
+    const deletedArr = filteredObj[0].comments.filter(comment => {
+      return commentId !== comment.id.toString()
+    })
+
+    let results = [];
+
+    [...this.state.dataObjs].forEach(data => {
+      if(data.id === filteredObj[0].id) {
+        data.comments = deletedArr;
+        results.push(data);
+      } else {
+        results.push(data);
+      }
+    })
+
+    this.setState({
+      dataObjs: results
+    });
+
+  }
+
+// ========== MOUNT ==========
   componentDidMount() {
     this.setState({
       dataObjs: dummyData
@@ -63,13 +119,18 @@ class PostPage extends Component {
   render() {
 
     const postContainer = this.state.dataObjs.map((data) => {
-      return <PostContainer key={data.id} data={data} />
+      return <PostContainer
+                key={data.id}
+                data={data}
+                onSubmit={this.commentSubmitHandler}
+                onClick={this.commentDeleteHandler}
+              />
     });
 
     return (
       <>
         <SearchBar
-          onSubmit={this.submitHandler}
+          onSubmit={this.searchSubmitHandler}
           onClick={this.refreshDataObj}
         />
         <section className="postPage-container">

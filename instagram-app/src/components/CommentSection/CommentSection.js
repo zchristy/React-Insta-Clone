@@ -4,47 +4,30 @@ import moment from 'moment';
 import './CommentSection.css';
 
 class CommentSection extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      comments: this.props.comments
-    }
-  }
-
-  submitHandler = (event) => {
+  submit = event => {
     event.preventDefault();
 
-    const newComment = {
-      id: Date.now(),
-      username: 'unknown',
-      text: event.target.querySelector('input').value
-    }
-    const addComment = [...this.state.comments].concat(newComment);
-
-    this.setState({
-        comments: addComment
-      });
+    const value = event.target.querySelector('#comment').value;
+    const id = this.props.data.id;
+    this.props.onSubmit(value, id);
 
     event.target.reset();
   }
 
-  deleteHandler = (event) => {
+  delete = event => {
     event.preventDefault();
 
-    const deletedArr = this.state.comments.filter(comment => {
-      return comment.id.toString() !== event.target.getAttribute('name');
-    });
-
-    this.setState({
-      comments: deletedArr
-    });
-
+    const commentId = event.target.getAttribute('name');
+    const id = this.props.data.id;
+    this.props.onClick(commentId, id);
   }
 
   render() {
 
-    const comments = this.state.comments.map((comment, i) => {
+    const { data, onClick } = this.props;
+
+    const comments = data.comments.map(comment => {
         return  (
           <div key={comment.id} className="comment-content">
             <div className="comment-username">
@@ -53,7 +36,7 @@ class CommentSection extends Component {
                 {comment.text}
               </span>
             </div>
-            <span name={comment.id} id="delete" onClick={this.deleteHandler}>X</span>
+            <span name={comment.id} id="delete" onClick={this.delete}>X</span>
           </div>
         )
 
@@ -66,8 +49,8 @@ class CommentSection extends Component {
           {moment().fromNow()}
         </div>
         <section className="add-comment">
-          <form onSubmit={this.submitHandler}>
-            <input id='comment'  type="text"  placeholder='Add a comment...' />
+          <form onSubmit={this.submit}>
+            <input userid={data.id} id='comment'  type="text"  placeholder='Add a comment...' />
           </form>
         </section>
       </div>
