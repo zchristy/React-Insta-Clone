@@ -44,18 +44,19 @@ class CommentSection extends Component {
 
   render() {
 
-    const comments = this.state.comments.map(comment => {
-      return  (
-        <div key={comment.id} className="comment-content">
-          <div className="comment-username">
-            {comment.username}
-            <span className="comment-text">
-              {comment.text}
-            </span>
+    const comments = this.state.comments.map((comment, i) => {
+        return  (
+          <div key={comment.id} className="comment-content">
+            <div className="comment-username">
+              {comment.username}
+              <span className="comment-text">
+                {comment.text}
+              </span>
+            </div>
+            <span name={comment.id} id="delete" onClick={this.deleteHandler}>X</span>
           </div>
-          <span name={comment.id} id="delete" onClick={this.deleteHandler}>X</span>
-        </div>
-      )
+        )
+
     });
 
     return (

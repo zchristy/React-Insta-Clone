@@ -29,6 +29,7 @@
 }
 
 #delete {
+  font-size: 1.2rem;
   color: #c0392b;
   transition: all 0.3s;
   opacity: 0;
